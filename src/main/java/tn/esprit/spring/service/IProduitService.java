@@ -11,7 +11,7 @@ public interface IProduitService {
 	List<Produit> retrieveAllProduits();
 	 Produit addProduit(Produit p, Long idRayon, Long idStock);
 	 Produit findById(Long id);
-
+	 Produit updateProduit(Produit produit, Long id);
 	 void delete(long id);
 	 void assignProduitToStock(Long	idProduit,Long idStock);
 	 float getRevenuBrutProduit(Long idProduit,	Date startDate,	Date endDate);
