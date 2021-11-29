@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,8 +36,9 @@ String code;
 String libelle;
 
 @OneToMany(mappedBy="rayon")
+@JsonManagedReference(value="rayon")
 private List<Produit> produits;
-
+//z
 public Rayon(long idRayon, String code, String libelle, List<Produit> produits) {
 	super();
 	this.idRayon = idRayon;
