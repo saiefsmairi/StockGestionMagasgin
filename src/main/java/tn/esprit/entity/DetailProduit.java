@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,6 +47,7 @@ public class DetailProduit {
 	CategorieProduit categorieProduit;
 	
 	@OneToOne(mappedBy="detailProduit")
+	@JsonManagedReference(value="detailproduit")
 	private Produit produit;
 
 

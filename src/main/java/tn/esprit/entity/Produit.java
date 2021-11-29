@@ -31,6 +31,7 @@ import javax.persistence.JoinColumn;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class Produit {
 
 @Id
@@ -56,10 +57,12 @@ Float prixUnitaire;
 private Stock stock;
 
 @OneToOne
+@JsonBackReference(value="detailproduit")
 private DetailProduit detailProduit;
 
 
 @ManyToOne
+@JsonBackReference(value="rayon")
 private Rayon rayon;
 
 @OneToMany(cascade = CascadeType.ALL)
