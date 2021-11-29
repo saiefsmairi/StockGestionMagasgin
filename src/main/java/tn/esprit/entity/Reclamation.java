@@ -37,7 +37,7 @@ Date date;
 
 @ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="FK_CLIENT_ID")
- @JsonBackReference
+	@JsonBackReference
 	Client client;
 
 }
