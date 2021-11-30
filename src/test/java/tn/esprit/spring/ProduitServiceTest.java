@@ -29,7 +29,11 @@ public class ProduitServiceTest {
     public void testAddProduit() {
         List<Produit> produits = produitService.retrieveAllProduits();
         int expected = produits.size();
-        Produit produit = new Produit("p123", "produit 123", 5.2F);
+        Produit produit = new Produit();
+        produit.setCode("p123");
+        produit.setLibelle("produit 123");
+        produit.setImage("pic.png");
+        produit.setPrixUnitaire(5.2F);
        // Produit savedProduit = produitService.addProduit(produit);
        assertEquals(expected + 1, produitService.retrieveAllProduits().size());
        //assertNotNull(savedProduit.getCode());

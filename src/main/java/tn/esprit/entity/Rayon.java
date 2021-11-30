@@ -38,7 +38,7 @@ String libelle;
 @OneToMany(mappedBy="rayon")
 @JsonManagedReference(value="rayon")
 private List<Produit> produits;
-//z
+
 public Rayon(long idRayon, String code, String libelle, List<Produit> produits) {
 	super();
 	this.idRayon = idRayon;
