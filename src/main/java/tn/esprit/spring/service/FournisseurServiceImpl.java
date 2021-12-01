@@ -31,8 +31,7 @@ public class FournisseurServiceImpl implements IFournisseurService{
 	ProduitRepository produitRepository;
 	@Override
 	public List<Fournisseur> retrieveAllFournisseurs() {
-		// TODO Auto-generated method stub
-		return null;
+		   return fournisseurRepository.findAll();
 	}
 
 	@Override
@@ -50,7 +49,8 @@ public class FournisseurServiceImpl implements IFournisseurService{
 
 	@Override
 	public Fournisseur updateFournisseur(Fournisseur f) {
-		// TODO Auto-generated method stub
+		System.out.println(f);
+		fournisseurRepository.updateFournisseur(f.getIdFournisseur(), f.getLibelle(), f.getAdresse(), f.getNumero());
 		return null;
 	}
 

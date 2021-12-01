@@ -1,13 +1,17 @@
 package tn.esprit.spring.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
 import tn.esprit.entity.Stock;
 import tn.esprit.spring.repository.ClientRepository;
 import tn.esprit.spring.repository.StockRepository;
-
+@Service
+@Slf4j
 public class StockServiceImpl implements IStockService {
 	@Autowired
 	StockRepository stockRepository;
@@ -31,8 +35,8 @@ public class StockServiceImpl implements IStockService {
 
 	@Override
 	public Stock retrieveStock(Long id) {
-		stockRepository.findById(id);
-		return null;
+	return stockRepository.findById(id).orElse(null);
+
 	}
 
 	@Override

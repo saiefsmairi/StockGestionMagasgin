@@ -55,6 +55,13 @@ import tn.esprit.spring.service.IProduitService;
 	return p;
 	}
 	
+	
+		@PutMapping("/modify-produit")
+		@ResponseBody
+		public Produit modifyProduit(@RequestBody Produit produit) {
+		return produitService.updateProduit(produit,produit.getIdproduit());
+		}
+	
 	@DeleteMapping("/remove-produit/{produit-id}")
 	@ResponseBody
 	public void removeProduit(@PathVariable("produit-id") Long produitID) {

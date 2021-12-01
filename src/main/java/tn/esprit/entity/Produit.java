@@ -20,6 +20,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,6 +32,7 @@ import javax.persistence.JoinColumn;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 
 public class Produit {
 
@@ -39,8 +41,8 @@ public class Produit {
 @Column
 private long idproduit;
 
-
-
+@Column 
+String image;
 @Column
 String code;
 
@@ -75,12 +77,6 @@ private List<Review> reviews;
 @JoinTable(name = "T_PRODUIT_FOURNISSEUR",joinColumns={@JoinColumn(name="idproduit")},inverseJoinColumns={@JoinColumn(name ="idFournisseur")})
 private Set<Fournisseur> fournisseurs;
 
-public Produit(String code, String libelle, Float prixUnitaire) {
-	super();
-	this.code = code;
-	this.libelle = libelle;
-	this.prixUnitaire = prixUnitaire;
-}
 
 @Override
 public String toString() {

@@ -13,5 +13,6 @@ public interface IClientService {
     List<Client> findAll();
     Client findById(Long id);
     float getChiffreAffaireParCategorieClient(CategorieClient  categorieClient);
+    Client findByEmail(String email);
 
 }
