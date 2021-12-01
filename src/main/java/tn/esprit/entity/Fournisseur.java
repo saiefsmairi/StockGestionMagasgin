@@ -33,6 +33,12 @@ String code;
 @Column
 String libelle;
 
+@Column
+String adresse;
+
+@Column
+String numero;
+
 @ManyToMany(cascade = CascadeType.ALL)
 @JoinTable(name = "T_PRODUIT_FOURNISSEUR",joinColumns={@JoinColumn(name="idFournisseur")},inverseJoinColumns={@JoinColumn(name ="idproduit")})
 private Set<Produit> produits;
@@ -44,9 +50,10 @@ public Fournisseur() {
 
 @Override
 public String toString() {
-	return "Fournisseur [idFournisseur=" + idFournisseur + ", code=" + code + ", libelle=" + libelle + ", produits="
-			+ produits + "]";
+	return "Fournisseur [idFournisseur=" + idFournisseur + ", code=" + code + ", libelle=" + libelle + ", adresse="
+			+ adresse + ", numero=" + numero + ", produits=" + produits + "]";
 }
+
 
 
 
