@@ -62,6 +62,15 @@ import tn.esprit.spring.service.IProduitService;
 	}
 	
 	
+	@PutMapping("/updateFournisseur/{fournisseur-id}")
+	@ResponseBody
+	public void updatefournisseuer(@PathVariable("fournisseur-id") Long fournisseurId,@RequestBody Fournisseur c) {
+	
+		FournisseurService.updateFournisseur(c);
+	}
+
+	
+	
 
 	@PutMapping("/assignFournisseurToProduit/{fournisseur-id}/{produit-id}")
 	@ResponseBody
