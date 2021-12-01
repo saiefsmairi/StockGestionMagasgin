@@ -57,6 +57,10 @@ public class ProduitServiceImpl implements IProduitService {
 		
 		return null;
 	}
+	@Override
+	 public Produit updateProduit(Produit produit, Long id) {
+		return produitRepository.save(produit);
+	}
 
 	@Override
 	public Produit findById(Long id) {

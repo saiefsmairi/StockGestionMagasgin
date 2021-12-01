@@ -37,7 +37,6 @@ int qteMin;
 String libelleStock;
 
 @OneToMany(mappedBy="stock")
-
 @JsonManagedReference(value="stockref")
 private List<Produit> produits;
 
