@@ -63,10 +63,10 @@ import tn.esprit.spring.service.IClientService;
 	}
 	
 	//http://localhost:8089/SpringMVC/client/modify-client
-	@PutMapping("/modify-client")
+	@PutMapping("/modify-client/{client-id}")
 	@ResponseBody
-	public Client modifyClient(@RequestBody Client client) {
-	return clientService.update(client,client.getIdClient());
+	public Client modifyClient(@RequestBody Client client,@PathVariable("client-id") Long clientId) {
+	return clientService.update(client,clientId);
 	}
 	
 	@GetMapping("/chiffre-perCateg/{categ}")
@@ -74,4 +74,11 @@ import tn.esprit.spring.service.IClientService;
 	public float getChiffreAffaireParCategorieClient(@PathVariable("categ") CategorieClient categ) throws ParseException {
 	return clientService.getChiffreAffaireParCategorieClient(categ);
 	}
+	//http://localhost:8089/client/login/{client-email}
+	@GetMapping("/login/{client-email}")
+	@ResponseBody
+	public Client findByEmail(@PathVariable("client-email") String email) {
+	return clientService.findByEmail(email);
+	}
+	
 }

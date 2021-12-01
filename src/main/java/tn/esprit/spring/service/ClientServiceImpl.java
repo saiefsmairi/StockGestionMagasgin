@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 @Service
@@ -27,6 +29,18 @@ public class ClientServiceImpl implements IClientService{
 
     @Override
     public Client update(Client client, Long id) {
+    	if(clientRepository.findById(id).isPresent()){
+            Client cl = clientRepository.findById(id).get();
+            cl.setNom(client.getNom());
+            cl.setPrenom(client.getPrenom());
+            cl.setEmail(client.getEmail());
+            cl.setPassword(client.getPassword());
+            cl.setDateNaissance(client.getDateNaissance());
+            cl.setProfession(client.getProfession());
+            cl.setCategorieClient(client.getCategorieClient());
+            cl.setFactures(client.getFactures());
+            return clientRepository.save(cl);
+        }
         return null;
     }
 
@@ -50,5 +64,11 @@ public class ClientServiceImpl implements IClientService{
 	@Override
 	public float getChiffreAffaireParCategorieClient(CategorieClient categorieClient) {
 		return clientRepository.getChiffreAffaireParCategorieClient(categorieClient);
+	}
+
+	@Override
+	public Client findByEmail(String email) {
+		this.log.info(this.clientRepository.findByEmail(email).toString());
+		return this.clientRepository.findByEmail(email);
 	}
 }
