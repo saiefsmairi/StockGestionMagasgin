@@ -48,6 +48,9 @@ public class Client {
 	@OneToMany(mappedBy="client")
 	private Set<Facture> factures;
 	
+	@OneToMany(mappedBy="client")
+	private Set<Reclamation> reclamation;
+	
 	public Client() {
 		super();
 		// TODO Auto-generated constructor stub

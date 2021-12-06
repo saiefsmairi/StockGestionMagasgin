@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tn.esprit.entity.Client;
 import tn.esprit.entity.Fournisseur;
+import tn.esprit.entity.Produit;
 
 @Repository
 public interface FournisseurRepository extends JpaRepository<Fournisseur,Long> {
@@ -20,4 +21,9 @@ public interface FournisseurRepository extends JpaRepository<Fournisseur,Long> {
 	@Query("update Fournisseur u set u.libelle = :libelle , u.adresse = :adresse , u.numero = :numero  where u.id = :id")
 	void updateFournisseur(@Param(value = "id") long id, @Param(value = "libelle") String libelle,@Param(value = "adresse") String adresse, @Param(value = "numero") String numero);
 
+
+	  
+	  @Query(value = "SELECT p FROM Produit p JOIN p.stock s WHERE s.qte<s.qteMin ")
+	    List<Produit> retrieveProduitFournisseur();
+	
 }

@@ -1,6 +1,12 @@
 package tn.esprit.control;
 
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +19,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
+import tn.esprit.configuration.MailFournisseur;
 import tn.esprit.entity.Client;
 import tn.esprit.entity.Facture;
 import tn.esprit.entity.Fournisseur;
@@ -30,6 +41,12 @@ import tn.esprit.spring.service.IProduitService;
 	
 	@Autowired
 	IFournisseurService FournisseurService;
+	
+	  @Autowired
+	    SpringTemplateEngine templateEngine;
+
+	    @Autowired
+	    private JavaMailSender sender;
 	
 	@GetMapping("/retrieve-all-fournisseur")
 	@ResponseBody
@@ -79,6 +96,46 @@ import tn.esprit.spring.service.IProduitService;
 		FournisseurService.assignFournisseurToProduit(fournisseurId, produitId);
 	}
 
+	@GetMapping("/retrieve-productsParFournisseur/{fournisseur-id}")
+	@ResponseBody
+	public Set<Produit> retrieveProduitFournisseur(@PathVariable("fournisseur-id") Long fournisseurId) {
+	return  FournisseurService.retrieveProduitFournisseur(fournisseurId);
+	}
+	
+	
+	
+
+    @RequestMapping("/sendMailfournisseur")
+    public @ResponseBody MailFournisseur sendMail(@RequestBody MailFournisseur details) throws Exception {
+
+        MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message,
+                MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+                StandardCharsets.UTF_8.name());
+
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put("name",details.getName());
+        model.put("description",details.getDescription());
+        model.put("email",details.getEmail());
+        model.put("productName",details.getProductName());
+
+
+        Context context = new Context();
+        context.setVariables(model);
+        String html = templateEngine.process("email-template", context);
+
+        try {
+            helper.setTo(details.getEmail());
+            helper.setText(html,true);
+            helper.setSubject("Augmentation du stock Pour notre Magasin");
+        } catch (javax.mail.MessagingException e) {
+            e.printStackTrace();
+        }
+        sender.send(message);
+
+        return details;
+
+    }
 
 
 

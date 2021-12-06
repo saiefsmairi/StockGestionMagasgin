@@ -53,7 +53,6 @@ String libelle;
 Float prixUnitaire;
 
 @ManyToOne
-@JsonBackReference(value="stockref")
 private Stock stock;
 
 @OneToOne

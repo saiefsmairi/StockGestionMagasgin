@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -18,7 +19,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@JsonIgnoreProperties
+
 
 public class Stock {
 
@@ -37,8 +38,10 @@ int qteMin;
 String libelleStock;
 
 @OneToMany(mappedBy="stock")
-@JsonManagedReference(value="stockref")
+@JsonIgnore
+
 private List<Produit> produits;
+
 
 
 public Stock() {

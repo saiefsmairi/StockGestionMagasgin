@@ -1,4 +1,4 @@
-package configuration;
+package tn.esprit.configuration;
 
 
 import org.aspectj.lang.JoinPoint;

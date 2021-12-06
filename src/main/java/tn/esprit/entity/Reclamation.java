@@ -40,4 +40,10 @@ Date date;
 	@JsonBackReference
 	Client client;
 
+@Override
+public String toString() {
+	return "Reclamation [idReclamation=" + idReclamation + ", detail=" + detail + ", date=" + date + ", client="
+			+ client + "]";
+}
+
 }
