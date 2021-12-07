@@ -7,6 +7,7 @@ import tn.esprit.entity.Client;
 import tn.esprit.spring.repository.ClientRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -19,11 +20,13 @@ import org.apache.logging.log4j.Logger;
 @Slf4j
 public class ClientServiceImpl implements IClientService{
 	private static final Logger logger = LogManager.getLogger(ClientServiceImpl.class);
+	BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     @Autowired
     private ClientRepository clientRepository;
 
     @Override
     public Client add(Client client) {
+    	client.setPassword(bCryptPasswordEncoder.encode(client.getPassword()));
         return clientRepository.save(client);
     }
 
@@ -34,7 +37,7 @@ public class ClientServiceImpl implements IClientService{
             cl.setNom(client.getNom());
             cl.setPrenom(client.getPrenom());
             cl.setEmail(client.getEmail());
-            cl.setPassword(client.getPassword());
+            cl.setPassword(bCryptPasswordEncoder.encode(client.getPassword()));
             cl.setDateNaissance(client.getDateNaissance());
             cl.setProfession(client.getProfession());
             cl.setCategorieClient(client.getCategorieClient());
