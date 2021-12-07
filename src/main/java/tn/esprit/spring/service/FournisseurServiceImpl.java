@@ -10,6 +10,7 @@ import tn.esprit.entity.Produit;
 import tn.esprit.spring.repository.ClientRepository;
 import tn.esprit.spring.repository.FournisseurRepository;
 import tn.esprit.spring.repository.ProduitRepository;
+import tn.esprit.spring.repository.StatsFournisseur;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 @Service
 @Slf4j
@@ -79,9 +85,27 @@ public class FournisseurServiceImpl implements IFournisseurService{
 	@Override
 	public Set<Produit> retrieveProduitFournisseur(Long	fournisseurId) {
 		Fournisseur f = fournisseurRepository.findById(fournisseurId) .orElse(null);
-	
 		   return f.getProduits();
 	}
 	
+	@Override
+	public List<StatsFournisseur> statsFourni() {
+		long s=0;
+		String fourni = "";
+		
+		List<StatsFournisseur> list = new ArrayList<StatsFournisseur>();
+		List<Fournisseur> f = fournisseurRepository.findAll();
+		
+		for (int i = 0; i < f.size(); i++) {
+
+			s=f.get(i).getProduits().size();
+			fourni=f.get(i).getLibelle();
+			System.out.println(s+" "+fourni);
+		    list.add(new StatsFournisseur(s,fourni));
+
+		}
+			
+		 return list;
+	}
 	
 }

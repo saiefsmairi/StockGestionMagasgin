@@ -29,6 +29,7 @@ import tn.esprit.entity.Client;
 import tn.esprit.entity.Facture;
 import tn.esprit.entity.Fournisseur;
 import tn.esprit.entity.Produit;
+import tn.esprit.spring.repository.StatsFournisseur;
 import tn.esprit.spring.service.IClientService;
 import tn.esprit.spring.service.IFactureService;
 import tn.esprit.spring.service.IFournisseurService;
@@ -60,6 +61,13 @@ import tn.esprit.spring.service.IProduitService;
 	@ResponseBody
 	public Fournisseur retrieveProduit(@PathVariable("fournisseur-id") Long fournisseurID) {
 	return FournisseurService.retrieveFournisseur(fournisseurID);
+	}
+	
+	
+	@GetMapping("/stats")
+	@ResponseBody
+	public  List<StatsFournisseur> stats() {
+	return FournisseurService.statsFourni();
 	}
 	
 
