@@ -48,7 +48,9 @@ public class Client {
 	@Enumerated(EnumType.STRING)
 	Profession Profession ;
 	private Boolean active;
-	@ManyToMany(cascade = CascadeType.PERSIST, fetch= FetchType.EAGER)
+	//we will transfert role to string
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch
+			= FetchType.EAGER)
 	private Set<Role> roles;
 	@OneToMany(mappedBy="client")
 	private Set<Facture> factures;

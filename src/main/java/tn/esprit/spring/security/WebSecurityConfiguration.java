@@ -20,7 +20,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);}
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-	http.authorizeRequests() .antMatchers("/client/add-client").permitAll()
+	http.authorizeRequests() .antMatchers("/client/add-client").permitAll().antMatchers("/**").permitAll()
 	.antMatchers("/client/remove-client/{client-id}").access("hasRole('ADMIN')")
 	.antMatchers("/client/retrieve-all-clients").access("hasRole('ADMIN')")
 	.anyRequest()

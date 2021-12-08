@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,15 +23,17 @@ import org.springframework.web.bind.annotation.RestController;
 import tn.esprit.entity.CategorieClient;
 import tn.esprit.entity.Client;
 import tn.esprit.spring.service.IClientService;
+import tn.esprit.spring.service.MyUserDetailsService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 
 	@RestController
 	@RequestMapping("/client")
 	public class ClientRestController { 
-	
+	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	@Autowired
 	IClientService clientService;
+	MyUserDetailsService  userDetailsService;
 	
 	// http://localhost:8089/SpringMVC/client/retrieve-all-clients
 	@GetMapping("/retrieve-all-clients")
@@ -75,10 +79,14 @@ import tn.esprit.spring.service.IClientService;
 	return clientService.getChiffreAffaireParCategorieClient(categ);
 	}
 	//http://localhost:8089/client/login/{client-email}
-	@GetMapping("/login/{client-email}")
+	@GetMapping("/login/{client-email}/{client-password}")
 	@ResponseBody
-	public Client findByEmail(@PathVariable("client-email") String email) {
-	return clientService.findByEmail(email);
+	public Client findByEmail(@PathVariable("client-email") String email,@PathVariable("client-password") String password) {
+		Client c = clientService.findByEmail(email);
+		if(passwordEncoder.matches(password, c.getPassword())) {
+			return c;
+		}
+		return null; 
 	}
 	
 }
