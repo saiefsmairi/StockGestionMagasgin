@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -49,6 +51,7 @@ public class Client {
 	private Set<Facture> factures;
 	
 	@OneToMany(mappedBy="client")
+	@JsonBackReference(value="test1")
 	private Set<Review> reviews;
 	
 	public Client() {

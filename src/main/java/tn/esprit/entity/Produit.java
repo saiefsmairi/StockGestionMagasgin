@@ -70,6 +70,7 @@ private Rayon rayon;
 private List<detailFacture> detailFactures;
 
 @OneToMany(mappedBy="product")
+@JsonBackReference(value="test1")
 private List<Review> reviews;
 
 @ManyToMany(cascade = CascadeType.ALL)

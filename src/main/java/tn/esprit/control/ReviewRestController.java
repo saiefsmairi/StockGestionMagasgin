@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.entity.Produit;
 import tn.esprit.entity.Review;
+import tn.esprit.spring.service.ClientServiceImpl;
 import tn.esprit.spring.service.IReviewService;
+import tn.esprit.spring.service.ProduitServiceImpl;
 import tn.esprit.spring.service.ReviewServiceImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -24,6 +29,12 @@ public class ReviewRestController{
 	@Autowired
 	ReviewServiceImpl reviewService;
 	
+	@Autowired
+	ClientServiceImpl clientService;
+	
+	@Autowired
+	ProduitServiceImpl produitService;
+	
 	@GetMapping()
 	@ResponseBody
 	public List<Review> getClients() {
@@ -31,12 +42,35 @@ public class ReviewRestController{
 	return listReviews;
 	}
 	
-	@PostMapping("/add-produit")
+	@PostMapping("/new")
 	@ResponseBody
-	public Produit addProduit(@RequestBody Produit c)
+	public Review add(@RequestBody Review r)
 	{
-		System.out.println(c);
-		Review p = review.addProduit(c, c.getRayon().getIdRayon(), c.getStock().getIdstock());
-	return p;
+		Review p =reviewService.addReview(r);
+	return r;
 	}
+
+	@GetMapping("/checkReview/{client}/{product}")
+	@ResponseBody
+	public Review checkReview(@PathVariable("client") Long clientId,@PathVariable("product") Long productId)
+	{
+		produitService.findById(productId);
+		
+		Review review = reviewService.findReviewByClientAndProduct( clientService.findById(clientId),produitService.findById(productId));
+		return review;
+	}
+	
+	@PutMapping("/update")
+	@ResponseBody
+	public Review update(@RequestBody Review r)
+	{
+		return reviewService.update(r);	
+	}
+
+	@DeleteMapping("/delete/{review}")
+	@ResponseBody
+	public void delete(@PathVariable("review") Long review) {
+		reviewService.delete(review);
+	}
+	
 }

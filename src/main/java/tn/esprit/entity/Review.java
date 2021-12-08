@@ -33,12 +33,10 @@ private int rating;
 
 @ManyToOne(fetch = FetchType.EAGER)
 @JoinColumn(name="CLIENT_ID")
-@JsonBackReference
 private Client client;
 
 @ManyToOne(fetch = FetchType.EAGER)
 @JoinColumn(name="PRODUCT_ID")
-@JsonBackReference
 private Produit product;
 
 }
