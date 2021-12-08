@@ -52,7 +52,7 @@ public class ReclamationServiceImpl implements IReclamationService{
 	@Override
 	public Reclamation updateReclamation(Reclamation f) {
 	
-		//fournisseurRepository.updateFournisseur(f.getIdFournisseur(), f.getLibelle(), f.getAdresse(), f.getNumero());
+		fournisseurRepository.updateFournisseur(f.getIdReclamation(),f.getReponse());
 		return null;
 	}
 

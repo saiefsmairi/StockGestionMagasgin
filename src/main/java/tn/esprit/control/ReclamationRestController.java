@@ -19,6 +19,7 @@ import tn.esprit.entity.Facture;
 import tn.esprit.entity.Fournisseur;
 import tn.esprit.entity.Produit;
 import tn.esprit.entity.Reclamation;
+import tn.esprit.spring.repository.ReclamationRepository;
 import tn.esprit.spring.service.IClientService;
 import tn.esprit.spring.service.IFactureService;
 import tn.esprit.spring.service.IFournisseurService;
@@ -33,12 +34,23 @@ import tn.esprit.spring.service.IReclamationService;
 	@Autowired
 	IReclamationService FournisseurService;
 	
+    @Autowired
+    private ReclamationRepository fournisseurRepository;
+	
 	@GetMapping("/retrieve-all-reclamation")
 	@ResponseBody
 	public List<Reclamation> getfournisseurs() {
-	List<Reclamation> listfournisseur = FournisseurService.findAll();
+	List<Reclamation> listfournisseur = fournisseurRepository.ReclamationNotResponded();
 	return listfournisseur;
 	}
+	
+	@GetMapping("/retrieve-all-reclamationRespondedPerClient/{client-id}")
+	@ResponseBody
+	public List<Reclamation> ReclamationRespondedPerClient(@PathVariable("client-id") Long clientid) {
+	List<Reclamation> listfournisseur = fournisseurRepository.ReclamationRespondedPerClient();
+	return listfournisseur;
+	}
+	
 	
 	
 	@GetMapping("/retrieve-reclamation/{reclamation-id}")
@@ -53,6 +65,8 @@ import tn.esprit.spring.service.IReclamationService;
 	@ResponseBody
 	public Reclamation addreclamation(@RequestBody Reclamation c)
 	{
+		c.setIsresponded("0");
+		System.out.println(c);
 		Reclamation p = FournisseurService.addReclamation(c);
 	return p;
 	}
@@ -67,7 +81,7 @@ import tn.esprit.spring.service.IReclamationService;
 	@PutMapping("/updatereclamation/{reclamation-id}")
 	@ResponseBody
 	public void updatefournisseuer(@PathVariable("reclamation-id") Long fournisseurId,@RequestBody Reclamation c) {
-	
+	System.out.println(c);
 		FournisseurService.updateReclamation(c);
 	}
 

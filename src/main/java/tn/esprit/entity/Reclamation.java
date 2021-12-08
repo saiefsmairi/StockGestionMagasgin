@@ -33,17 +33,25 @@ private long idReclamation;
 String detail;
 
 @Column
+String reponse;
+
+@Column
+String isresponded;
+
+
+@Column
 Date date;
 
 @ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="FK_CLIENT_ID")
-	@JsonBackReference
 	Client client;
 
 @Override
 public String toString() {
-	return "Reclamation [idReclamation=" + idReclamation + ", detail=" + detail + ", date=" + date + ", client="
-			+ client + "]";
+	return "Reclamation [idReclamation=" + idReclamation + ", detail=" + detail + ", reponse=" + reponse + ", date="
+			+ date + ", client=" + client + "]";
 }
+
+
 
 }
