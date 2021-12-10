@@ -26,7 +26,10 @@ public class Stock {
 @GeneratedValue( strategy = GenerationType.IDENTITY )
 @Column
 private long idstock;
-
+@Column
+String productsName;
+@Column
+String fournisseursName;
 @Column
 int qte;
 

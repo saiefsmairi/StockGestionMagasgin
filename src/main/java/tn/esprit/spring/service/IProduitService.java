@@ -9,7 +9,9 @@ import tn.esprit.entity.Produit;
 
 public interface IProduitService {
 	List<Produit> retrieveAllProduits();
-	 Produit addProduit(Produit p, Long idRayon, Long idStock);
+	 //Produit addProduit(Produit p, Long idRayon, Long idStock);
+	 Produit addProduit(Produit p);
+
 	 Produit findById(Long id);
 
 	 Produit updateProduit(Produit produit, Long id);
@@ -19,5 +21,14 @@ public interface IProduitService {
 	 void delete(long id);
 	 void assignProduitToStock(Long	idProduit,Long idStock);
 	 float getRevenuBrutProduit(Long idProduit,	Date startDate,	Date endDate);
+	 public List<Produit> getProductsPriceASC();
+	 public List<Produit> getProductsPriceDESC();
+	 public List<Produit> getProductAlimentaire();
+	 public List<Produit> getAllProductElectromeanger();
+	 public List<Produit> getAllProductQuincaillerie();
+	 public List<Integer>getPercentageGroupByCategorie();
+	 public List<Float>getPercentageGroupByCategory();
+	 public List<String>getCategories();
+
 	 void retrieveStatusStock();
 }

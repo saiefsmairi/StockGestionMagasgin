@@ -24,5 +24,20 @@ public interface ProduitRepository extends JpaRepository<Produit,Long> {
 	
 	  @Query(value = "SELECT p FROM Produit p JOIN p.stock s WHERE s.qte<s.qteMin ")
 	    List<Produit> retrieveStatusStock();
-
+	  @Query(value="Select * from produit order by prix_unitaire desc",nativeQuery = true)
+		public List<Produit> getAllProductPriceDesc();
+	  @Query(value="Select * from produit order by prix_unitaire",nativeQuery = true)
+		public List<Produit> getAllProductPriceASC();
+	  @Query(value="Select * from produit p where p.category_name = 'Alimentaire'",nativeQuery = true)
+		public List<Produit> getAllProductAlimentaire();
+	  @Query(value="Select * from produit p where p.category_name = 'Electromeanger'",nativeQuery = true)
+		public List<Produit> getAllProductElectromeanger();
+	  @Query(value="Select * from produit p where p.category_name = 'Quincaillerie'",nativeQuery = true)
+			public List<Produit> getAllProductQuincaillerie();
+	  @Query(value="Select COUNT(*) from produit GROUP BY category_name",nativeQuery = true)
+		public List<Integer> getPercentageGroupByCategorie();
+	  @Query(value="Select (COUNT(*)/(Select COUNT(*) from produit) *100) from produit GROUP BY category_name",nativeQuery = true)
+		public List<Float> getPercentageGroupByCategory();
+	  @Query(value="Select DISTINCT category_name from produit ",nativeQuery = true)
+		public List<String> getAllCategories();
 }
