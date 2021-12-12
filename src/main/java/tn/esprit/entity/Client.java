@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -58,6 +60,11 @@ public class Client {
 	private Set<Role> roles;
 	@OneToMany(mappedBy="client")
 	private Set<Facture> factures;
+	
+	@OneToMany(mappedBy="client")
+	@JsonIgnore
+
+	private Set<Reclamation> reclamation;
 	
 	public Client() {
 		super();

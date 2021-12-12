@@ -2,10 +2,14 @@ package tn.esprit.spring.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import tn.esprit.entity.CategorieClient;
 import tn.esprit.entity.Client;
 import tn.esprit.entity.Fournisseur;
+import tn.esprit.entity.Produit;
+import tn.esprit.spring.repository.StatsFournisseur;
 
 public interface IFournisseurService {
 	  List<Fournisseur> retrieveAllFournisseurs();
@@ -20,5 +24,9 @@ public interface IFournisseurService {
 
 	  void assignFournisseurToProduit(Long	fournisseurId,	Long produitId);
 
+	  Set<Produit> retrieveProduitFournisseur(Long	fournisseurId);
+	  
+	  
+	  List<StatsFournisseur> statsFourni() ;
 
 }

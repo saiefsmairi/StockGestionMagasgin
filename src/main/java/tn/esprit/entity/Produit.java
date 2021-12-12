@@ -60,7 +60,6 @@ String stockName ;
 @Column 
 String description ;
 @ManyToOne
-@JsonBackReference(value="stockref")
 private Stock stock;
 
 @OneToOne
