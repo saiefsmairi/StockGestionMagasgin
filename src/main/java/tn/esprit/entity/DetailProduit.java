@@ -37,7 +37,7 @@ public class DetailProduit {
 	Date dateCreation;
 
 	@Column
-	Date dateDerniéreModification;
+	Date dateDerniereModification;
 
 	@Column
 	Float prixUnitaire;
@@ -62,7 +62,7 @@ public class DetailProduit {
 		super();
 		
 		this.dateCreation = dateCreation;
-		this.dateDerniéreModification = dateDerniéreModification;
+		this.dateDerniereModification = dateDerniéreModification;
 		this.prixUnitaire = prixUnitaire;
 		this.categorieProduit = categorieProduit;
 		this.produit = produit;

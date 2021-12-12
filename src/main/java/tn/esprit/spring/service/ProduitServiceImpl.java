@@ -45,16 +45,16 @@ public class ProduitServiceImpl implements IProduitService {
 	}
 
 	@Override
-	public Produit addProduit(Produit p, Long idRayon, Long idStock) {
-		Rayon r = rayonRepository.findById(idRayon) .orElse(null);
-		Stock s = stockRepository.findById(idStock) .orElse(null);
+	public Produit addProduit(Produit p) {
+		//Rayon r = rayonRepository.findById(idRayon) .orElse(null);
+		//Stock s = stockRepository.findById(idStock) .orElse(null);
 		CategorieProduit c=CategorieProduit.Electromeanger;
 		DetailProduit detailProduit=new DetailProduit(new Date(),new Date(),7.99f,c,p);
-		p.setRayon(r);
-		p.setStock(s);
-		produitRepository.save(p);
+		//p.setRayon(r);
+		//p.setStock(s);
+		//p.setImage("img.png");
+	return	produitRepository.save(p);
 		
-		return null;
 	}
 	@Override
 	 public Produit updateProduit(Produit produit, Long id) {
@@ -98,4 +98,57 @@ public class ProduitServiceImpl implements IProduitService {
 	  produitRepository.retrieveStatusStock()
 	          .forEach(produit -> log.warn("PRODUIT "+produit.getIdproduit()+" CODE : "+produit.getCode()+" est epuisé !"));
 	}
+
+		@Override
+		public List<Produit> getProductsPriceASC() {
+			return (List<Produit>) produitRepository.getAllProductPriceASC();
+		}
+
+		@Override
+		public List<Produit> getProductsPriceDESC() {
+			// TODO Auto-generated method stub
+			return (List<Produit>) produitRepository.getAllProductPriceDesc();
+		}
+
+		@Override
+		public List<Produit> getProductAlimentaire() {
+			// TODO Auto-generated method stub
+			return (List<Produit>) produitRepository.getAllProductAlimentaire();
+		}
+
+		@Override
+		public List<Produit> getAllProductElectromeanger() {
+			// TODO Auto-generated method stub
+			return (List<Produit>) produitRepository.getAllProductElectromeanger();
+		}
+
+		@Override
+		public List<Produit> getAllProductQuincaillerie() {
+			// TODO Auto-generated method stub
+			return (List<Produit>) produitRepository.getAllProductQuincaillerie();
+		}
+
+		@Override
+		public List<Integer> getPercentageGroupByCategorie() {
+			// TODO Auto-generated method stub
+			return  (List<Integer>) produitRepository.getPercentageGroupByCategorie();
+		}
+
+		@Override
+		public List<Float> getPercentageGroupByCategory() {
+			// TODO Auto-generated method stub
+			return  (List<Float>) produitRepository.getPercentageGroupByCategory();
+		}
+
+		@Override
+		public List<String> getCategories() {
+			// TODO Auto-generated method stub
+			
+			return  (List<String>) produitRepository.getAllCategories();
+			
+		}
+
+		
+
+		
 }

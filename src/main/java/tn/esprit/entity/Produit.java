@@ -51,7 +51,14 @@ String libelle;
 
 @Column
 Float prixUnitaire;
+@Column 
+String categoryName ;
 
+@Column 
+String stockName ;
+
+@Column 
+String description ;
 @ManyToOne
 @JsonBackReference(value="stockref")
 private Stock stock;
