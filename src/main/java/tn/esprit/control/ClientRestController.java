@@ -1,10 +1,13 @@
 package tn.esprit.control;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,6 +36,7 @@ import tn.esprit.spring.service.MyUserDetailsService;
 	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	@Autowired
 	IClientService clientService;
+	@Autowired
 	MyUserDetailsService  userDetailsService;
 	
 	// http://localhost:8089/SpringMVC/client/retrieve-all-clients
@@ -53,7 +57,7 @@ import tn.esprit.spring.service.MyUserDetailsService;
 	//http://localhost:8089/SpringMVC/client/add-client
 	@PostMapping("/add-client")
 	@ResponseBody
-	public Client addClient(@RequestBody Client c)
+	public Client addClient(@RequestBody Client c) throws UnsupportedEncodingException, MessagingException
 	{
 	Client client = clientService.add(c);
 	return client;
@@ -72,7 +76,20 @@ import tn.esprit.spring.service.MyUserDetailsService;
 	public Client modifyClient(@RequestBody Client client,@PathVariable("client-id") Long clientId) {
 	return clientService.update(client,clientId);
 	}
-	
+	@GetMapping("/verify/{code}")
+	@ResponseBody
+	public String verifyByVerificationCode(@PathVariable("code") String code) throws ParseException {
+		if(clientService.verify(code)) {
+			return "<div class=\"container text-center\">\r\n" + 
+					"    <h3>Congratulations, your account has been verified.</h3>\r\n" + 
+					"    <h4><a href=\"http://localhost:4200/auth/login\">Click here to Login</a></h4>\r\n" + 
+					"</div>";
+		}
+	return "<div class=\"container text-center\">\r\n" + 
+			"    <h3>Sorry, we could not verify account. It maybe already verified,\r\n" + 
+			"        or verification code is incorrect.</h3>\r\n" + 
+			"</div>";
+	}
 	@GetMapping("/chiffre-perCateg/{categ}")
 	@ResponseBody
 	public float getChiffreAffaireParCategorieClient(@PathVariable("categ") CategorieClient categ) throws ParseException {
@@ -88,5 +105,31 @@ import tn.esprit.spring.service.MyUserDetailsService;
 		}
 		return null; 
 	}
+	@GetMapping("/code/{code}")
+	@ResponseBody
+	public Client findByVerificationCode(@PathVariable("code") String code) {
+		return clientService.findByVerificationCode(code);
+		
+	}
+@GetMapping("/active-account")
 	
+	public int getActiveAccount() {
+	return  clientService.activeAccount();
+	}
+@GetMapping("/desactive-account")
+public int getDesactiveAccount() {
+return  clientService.desactiveAccount();
+}
+@GetMapping("/premuim")
+public int getPremuimAccount() {
+return  clientService.premuimAccount();
+}
+@GetMapping("/ordinaire")
+public int getOrdinaireAccount() {
+return  clientService.ordinaireAccount();
+}
+@GetMapping("/fidele")
+public int getFideleAccount() {
+return  clientService.fideleAccount();
+}
 }

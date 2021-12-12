@@ -5,7 +5,10 @@ package tn.esprit.spring;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+
+import javax.mail.MessagingException;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -27,7 +30,7 @@ public class ClientServiceTest {
 
     @Test
     @Ignore
-    public void testAddClient() {
+    public void testAddClient() throws UnsupportedEncodingException, MessagingException {
         List<Client> clients = clientService.findAll();
         int expected = clients.size();
         Client client = new Client("smairi", "Saief3");

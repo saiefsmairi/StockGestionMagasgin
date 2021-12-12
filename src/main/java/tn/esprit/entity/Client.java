@@ -47,7 +47,11 @@ public class Client {
 	@Column
 	@Enumerated(EnumType.STRING)
 	Profession Profession ;
-	private Boolean active;
+	@Column
+	Boolean active;
+	@Column
+	String verificationCode;
+	
 	//we will transfert role to string
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch
 			= FetchType.EAGER)
