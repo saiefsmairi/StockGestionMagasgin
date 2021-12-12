@@ -13,4 +13,6 @@ public interface IReviewService {
 	void delete(long id);
 	Review findReviewByClientAndProduct(Client client,Produit product);
 	Review update(Review review);
+	 List<Review> getProductReviews(Produit product);
+	 Client findByRole();
 }

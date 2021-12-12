@@ -21,6 +21,9 @@ public interface ClientRepository extends JpaRepository<Client,Long> {
 @Query("select sum(fac.montantFacture) from Facture fac ,Client c where c=fac.client and c.categorieClient=:categorieClient ")
 float getChiffreAffaireParCategorieClient(@Param("categorieClient") CategorieClient categorieClient);
 Client findByEmail(String email);
+
+@Query
+Client findByCategorieClient(CategorieClient category);
 }
 
 

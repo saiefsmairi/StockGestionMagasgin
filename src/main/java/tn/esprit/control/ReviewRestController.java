@@ -42,6 +42,13 @@ public class ReviewRestController{
 	return listReviews;
 	}
 	
+	@GetMapping("/product/{id}")
+	@ResponseBody
+	public List<Review> getProductReviews(@PathVariable("id") Long id) {
+	List<Review> listReviews = reviewService.getProductReviews(produitService.findById(id));
+	return listReviews;
+	}
+	
 	@PostMapping("/new")
 	@ResponseBody
 	public Review add(@RequestBody Review r)
@@ -72,5 +79,7 @@ public class ReviewRestController{
 	public void delete(@PathVariable("review") Long review) {
 		reviewService.delete(review);
 	}
+	
+	
 	
 }
