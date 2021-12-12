@@ -144,7 +144,9 @@ public class ProduitServiceImpl implements IProduitService {
 		@Override
 		public List<String> getCategories() {
 			// TODO Auto-generated method stub
+			
 			return  (List<String>) produitRepository.getAllCategories();
+			
 		}
 
 		
