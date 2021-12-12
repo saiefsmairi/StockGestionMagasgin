@@ -19,7 +19,6 @@ import tn.esprit.entity.DetailProduit;
 import tn.esprit.entity.Produit;
 import tn.esprit.entity.Rayon;
 import tn.esprit.entity.Stock;
-import tn.esprit.spring.ClientServiceTest;
 import tn.esprit.spring.repository.ClientRepository;
 import tn.esprit.spring.repository.ProduitRepository;
 import tn.esprit.spring.repository.RayonRepository;
@@ -88,7 +87,8 @@ public class ProduitServiceImpl implements IProduitService {
 	public float getRevenuBrutProduit(Long idProduit, Date startDate, Date endDate) {
 		Produit p = produitRepository.findById(idProduit) .orElse(null);
 
-		return produitRepository.getRevenuBrutProduit(p, startDate, endDate);
+		//return produitRepository.getRevenuBrutProduit(p, startDate, endDate);
+		return 0 ;
 	}
 
 

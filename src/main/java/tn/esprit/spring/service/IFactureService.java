@@ -12,11 +12,13 @@ public interface IFactureService {
 
 	    List<Facture> getFacturesByClient(Long	  idClient);
 
-	    Facture addFacture(Facture	  f, Long idClient);
+	    Facture addFacture(Facture	  f);
 
 	    void cancelFacture(Long	  id);
 
 	    Facture retrieveFacture(Long	  id);
+	    
+	    Integer[] getStatFactureMonth() ;
 
 
 			}

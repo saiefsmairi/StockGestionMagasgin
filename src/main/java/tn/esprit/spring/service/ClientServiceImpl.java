@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
 public class ClientServiceImpl implements IClientService{
 	private static final Logger logger = LogManager.getLogger(ClientServiceImpl.class);
     @Autowired
-    private ClientRepository clientRepository;
+    ClientRepository clientRepository;
 
     @Override
     public Client add(Client client) {

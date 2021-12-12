@@ -65,9 +65,8 @@ private DetailProduit detailProduit;
 @JsonBackReference(value="rayon")
 private Rayon rayon;
 
-@OneToMany(cascade = CascadeType.ALL)
-@JoinColumn(name = "idFacture")
-private List<detailFacture> detailFactures;
+//@OneToMany(mappedBy="produit")
+//detailFacture detailFactures;
 
 @ManyToMany(cascade = CascadeType.ALL)
 @JsonBackReference
@@ -79,7 +78,7 @@ private Set<Fournisseur> fournisseurs;
 public String toString() {
 	return "Produit [idproduit=" + idproduit + ", code=" + code + ", libelle=" + libelle + ", prixUnitaire="
 			+ prixUnitaire + ", stock=" + stock + ", detailProduit=" + detailProduit + ", rayon=" + rayon
-			+ ", detailFactures=" + detailFactures + ", fournisseurs=" + fournisseurs + "]";
+			+ ", fournisseurs=" + fournisseurs + "]";
 }
 
 

@@ -1,6 +1,7 @@
 package tn.esprit.spring.service;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -41,10 +42,7 @@ public class FactureServiceImpl implements IFactureService {
 	}
 
 	@Override
-	public Facture addFacture(Facture f, Long idClient) {
-		Client p = clientRepository.findById(idClient) .orElse(null);
-
-		f.setClient(p);
+	public Facture addFacture(Facture f) {
 		f.setDateFacture(new Date());
 		factureRepository.save(f);
 		return  f;
@@ -60,6 +58,31 @@ public class FactureServiceImpl implements IFactureService {
 	public Facture retrieveFacture(Long id) {
 		
 		return 	factureRepository.findById(id).orElse(null);
+	}
+	
+	
+	public Integer[] getStatFactureMonth()
+	{
+		
+		Integer[] monthStat = new Integer[12] ;
+		for (int i=0 ; i < 12 ; i++)
+		{
+			monthStat[i] = 0 ;
+		}
+		List<Facture> list = (List<Facture>) factureRepository.findAll() ;
+		
+		for (Facture facture : list) {
+			
+			Date date = facture.getDateFacture();
+			int month = date.getMonth() ; 
+			monthStat[month] = monthStat[month] + 1 ;
+		}
+		
+		return monthStat ; 
+		
+		
+		
+		
 	}
 
 
