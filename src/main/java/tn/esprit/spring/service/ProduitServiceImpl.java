@@ -19,7 +19,6 @@ import tn.esprit.entity.DetailProduit;
 import tn.esprit.entity.Produit;
 import tn.esprit.entity.Rayon;
 import tn.esprit.entity.Stock;
-import tn.esprit.spring.ClientServiceTest;
 import tn.esprit.spring.repository.ClientRepository;
 import tn.esprit.spring.repository.ProduitRepository;
 import tn.esprit.spring.repository.RayonRepository;

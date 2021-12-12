@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import tn.esprit.spring.ClientServiceTest;
 
 
 
