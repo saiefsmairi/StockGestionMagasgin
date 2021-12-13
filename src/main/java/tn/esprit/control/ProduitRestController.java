@@ -43,7 +43,10 @@ import io.swagger.models.Response;
 import tn.esprit.entity.Client;
 import tn.esprit.entity.Fournisseur;
 import tn.esprit.entity.Produit;
+import tn.esprit.entity.Stock;
+import tn.esprit.spring.repository.FournisseurRepository;
 import tn.esprit.spring.repository.ProduitRepository;
+import tn.esprit.spring.repository.StockRepository;
 import tn.esprit.spring.service.IClientService;
 import tn.esprit.spring.service.IProduitService;
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -51,8 +54,14 @@ import tn.esprit.spring.service.IProduitService;
 	@RequestMapping("/produit")
 		@JsonIgnoreProperties
 	public class ProduitRestController {
-
-
+	@Autowired
+	FournisseurRepository fournisseurRepository;
+	
+	
+	@Autowired
+	StockRepository stockRepository;
+	
+	
 	@Autowired
 	IProduitService produitService;
 	@Autowired
@@ -124,9 +133,11 @@ import tn.esprit.spring.service.IProduitService;
 	@PostMapping("/add-produit")
 	@ResponseBody
 	//required=false,name=
-	public ResponseEntity<Response> addProduit(@RequestParam("produit") String produit,
+	public ResponseEntity<Response> addProduit(@RequestParam("produit") String produit,@RequestParam("fournisseur") long fournisseurId,
+			@RequestParam("idstock") long idstock,
 			@RequestParam("file") MultipartFile file) throws JsonMappingException, JsonProcessingException
-	{ Produit prod = new ObjectMapper().readValue(produit,Produit.class);
+	{ 
+		Produit prod = new ObjectMapper().readValue(produit,Produit.class);
 	boolean isExit = new File(context.getRealPath("/Images/")).exists();
 	if(!isExit)
 	{ 
@@ -139,10 +150,17 @@ import tn.esprit.spring.service.IProduitService;
 		
 		try
 		{
-			System.out.println("Image");
+			System.out.println(idstock);
+			
 			FileUtils.writeByteArrayToFile(serverFile, file.getBytes());
 		}catch(Exception e) {e.printStackTrace();}
 		prod.setImage(newFileName);
+		Fournisseur f = fournisseurRepository.findById(fournisseurId) .orElse(null);
+		
+		Stock s = stockRepository.findById(idstock) .orElse(null);
+		prod.setStock(s);
+		f.getProduits().add(prod);
+
 		Produit pro = productRepository.save(prod);
 		if(pro != null)
 		{return new ResponseEntity<Response>(new Response (), HttpStatus.OK);}

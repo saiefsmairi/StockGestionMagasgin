@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +44,9 @@ String numero;
 
 @Column
 String email;
+
+@OneToOne
+private Stock stock;
 
 @ManyToMany(cascade = CascadeType.ALL)
 @JoinTable(name = "T_PRODUIT_FOURNISSEUR",joinColumns={@JoinColumn(name="idFournisseur")},inverseJoinColumns={@JoinColumn(name ="idproduit")})

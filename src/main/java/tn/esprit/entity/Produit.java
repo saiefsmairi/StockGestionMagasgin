@@ -62,6 +62,9 @@ String description ;
 @ManyToOne
 private Stock stock;
 
+@Column 
+String idFournisseur ;
+
 @OneToOne
 @JsonBackReference(value="detailproduit")
 private DetailProduit detailProduit;
@@ -81,11 +84,13 @@ private List<detailFacture> detailFactures;
 private Set<Fournisseur> fournisseurs;
 
 
+
 @Override
 public String toString() {
 	return "Produit [idproduit=" + idproduit + ", code=" + code + ", libelle=" + libelle + ", prixUnitaire="
 			+ prixUnitaire + ", stock=" + stock + ", detailProduit=" + detailProduit + ", rayon=" + rayon
-			+ ", detailFactures=" + detailFactures + ", fournisseurs=" + fournisseurs + "]";
+			+ ", detailFactures=" + detailFactures + ", fournisseurs=" + fournisseurs + "+ \", idFournisseur=\" + idFournisseur\r\n" + 
+					"			+ \"]";
 }
 
 
