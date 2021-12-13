@@ -33,6 +33,19 @@ public int fideleAccount();
 float getChiffreAffaireParCategorieClient(@Param("categorieClient") CategorieClient categorieClient);
 Client findByEmail(String email);
 Client findByVerificationCode(String code);
+//Docteur,ingenieur,etudiant,commercial,cadre,autre
+@Query("SELECT count(c.Profession) FROM Client c where c.Profession='Docteur'")
+public int docteurProfession();
+@Query("SELECT count(c.Profession) FROM Client c where c.Profession='ingenieur'")
+public int ingenieurProfession();
+@Query("SELECT count(c.Profession) FROM Client c where c.Profession='etudiant'")
+public int etudiantProfession();
+@Query("SELECT count(c.Profession) FROM Client c where c.Profession='commercial'")
+public int commercialProfession();
+@Query("SELECT count(c.Profession) FROM Client c where c.Profession='cadre'")
+public int cadreProfession();
+@Query("SELECT count(c.Profession) FROM Client c where c.Profession='autre'")
+public int autreProfession();
 }
 
 

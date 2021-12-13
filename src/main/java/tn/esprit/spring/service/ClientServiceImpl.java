@@ -50,7 +50,6 @@ public class ClientServiceImpl implements IClientService{
             cl.setNom(client.getNom());
             cl.setPrenom(client.getPrenom());
             cl.setEmail(client.getEmail());
-            cl.setPassword(bCryptPasswordEncoder.encode(client.getPassword()));
             cl.setDateNaissance(client.getDateNaissance());
             cl.setProfession(client.getProfession());
             cl.setCategorieClient(client.getCategorieClient());
@@ -161,5 +160,76 @@ public class ClientServiceImpl implements IClientService{
 	@Override
 	public int fideleAccount() {
 		return this.clientRepository.fideleAccount();
+	}
+
+	@Override
+	public boolean updatePassword(Long id, String currentPassword, String newPassword) {
+		Client client = new Client();
+		client = this.clientRepository.findById(id).get();
+		if (bCryptPasswordEncoder.matches(currentPassword, client.getPassword())) {
+			client.setNom(client.getNom());
+			client.setPrenom(client.getPrenom());
+			client.setEmail(client.getEmail());
+			client.setPassword(bCryptPasswordEncoder.encode(newPassword));
+			client.setDateNaissance(client.getDateNaissance());
+			client.setProfession(client.getProfession());
+			client.setCategorieClient(client.getCategorieClient());
+			client.setFactures(client.getFactures());
+            clientRepository.save(client);
+            return true;
+		}else {
+			return false;
+		}
+		
+	}
+
+	@Override
+	public boolean resetPassword(String email, String newPassword) {
+		Client client = new Client();
+		client = this.clientRepository.findByEmail(email);
+		if (client == null) {
+	        return false;
+	    } else {
+	    	client.setNom(client.getNom());
+			client.setPrenom(client.getPrenom());
+			client.setEmail(client.getEmail());
+			client.setPassword(bCryptPasswordEncoder.encode(newPassword));
+			client.setDateNaissance(client.getDateNaissance());
+			client.setProfession(client.getProfession());
+			client.setCategorieClient(client.getCategorieClient());
+			client.setFactures(client.getFactures());
+            clientRepository.save(client);
+	        return true;
+	    }
+	}
+
+	@Override
+	public int docteurProfession() {
+		return this.clientRepository.docteurProfession();
+	}
+
+	@Override
+	public int ingenieurProfession() {
+		return this.clientRepository.ingenieurProfession();
+	}
+
+	@Override
+	public int etudiantProfession() {
+		return this.clientRepository.etudiantProfession();
+	}
+
+	@Override
+	public int commercialProfession() {
+		return this.clientRepository.commercialProfession();
+	}
+
+	@Override
+	public int cadreProfession() {
+		return this.clientRepository.cadreProfession();
+	}
+
+	@Override
+	public int autreProfession() {
+		return this.clientRepository.autreProfession();
 	}
 }

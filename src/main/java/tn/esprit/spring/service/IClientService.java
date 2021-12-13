@@ -25,5 +25,13 @@ public interface IClientService {
 	public int premuimAccount();
 	public int ordinaireAccount();
 	public int fideleAccount();
+	public boolean updatePassword(Long id, String currentPassword, String newPassword);
+	public boolean resetPassword( String email, String newPassword);
+	public int docteurProfession();
+	public int ingenieurProfession();
+	public int etudiantProfession();
+	public int commercialProfession();
+	public int cadreProfession();
+	public int autreProfession();
 
 }
