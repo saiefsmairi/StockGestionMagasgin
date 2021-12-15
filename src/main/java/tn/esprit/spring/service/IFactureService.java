@@ -17,6 +17,8 @@ public interface IFactureService {
 	    void cancelFacture(Long	  id);
 
 	    Facture retrieveFacture(Long	  id);
+	    
+	    Integer[] getStatFactureMonth() ;
 
 
 			}

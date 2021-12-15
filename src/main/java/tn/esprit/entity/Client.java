@@ -61,6 +61,7 @@ public class Client {
 			= FetchType.EAGER)
 	private Set<Role> roles;
 	@OneToMany(mappedBy="client")
+	@JsonBackReference
 	private Set<Facture> factures;
 	
 	@OneToMany(mappedBy="client")

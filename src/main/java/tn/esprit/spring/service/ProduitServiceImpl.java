@@ -87,7 +87,8 @@ public class ProduitServiceImpl implements IProduitService {
 	public float getRevenuBrutProduit(Long idProduit, Date startDate, Date endDate) {
 		Produit p = produitRepository.findById(idProduit) .orElse(null);
 
-		return produitRepository.getRevenuBrutProduit(p, startDate, endDate);
+		//return produitRepository.getRevenuBrutProduit(p, startDate, endDate);
+		return 0 ;
 	}
 
 

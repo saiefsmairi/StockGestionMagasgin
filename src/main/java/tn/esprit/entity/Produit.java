@@ -24,6 +24,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.JoinColumn;
 
@@ -31,6 +32,7 @@ import javax.persistence.JoinColumn;
 @Entity
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -74,9 +76,8 @@ private DetailProduit detailProduit;
 @JsonBackReference(value="rayon")
 private Rayon rayon;
 
-@OneToMany(cascade = CascadeType.ALL)
-@JoinColumn(name = "idFacture")
-private List<detailFacture> detailFactures;
+//@OneToMany(mappedBy="produit")
+//detailFacture detailFactures;
 
 @OneToMany(mappedBy="product")
 @JsonBackReference(value="test1")
@@ -89,13 +90,7 @@ private Set<Fournisseur> fournisseurs;
 
 
 
-@Override
-public String toString() {
-	return "Produit [idproduit=" + idproduit + ", code=" + code + ", libelle=" + libelle + ", prixUnitaire="
-			+ prixUnitaire + ", stock=" + stock + ", detailProduit=" + detailProduit + ", rayon=" + rayon
-			+ ", detailFactures=" + detailFactures + ", fournisseurs=" + fournisseurs + "+ \", idFournisseur=\" + idFournisseur\r\n" + 
-					"			+ \"]";
-}
+
 
 
 

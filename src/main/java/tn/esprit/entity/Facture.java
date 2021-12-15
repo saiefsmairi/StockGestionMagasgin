@@ -45,15 +45,12 @@ public class Facture {
 	@Column
 	boolean active;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="FK_CLIENT_ID")
-    @JsonBackReference
+    @ManyToOne
 	Client client;
 	
-	@OneToMany(mappedBy="facture")
-	private Set<detailFacture> detailFactures;
+	//@OneToMany
+	//detailFacture detailf;
 	
-
 
 	public Facture(float f, float g, boolean b) {
 		super();

@@ -1,5 +1,6 @@
 package tn.esprit.control;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,18 +44,26 @@ import tn.esprit.spring.service.IProduitService;
 	return factureService.retrieveFacture(factureID);
 	}
 	
+	@GetMapping("/stat/year")
+	@ResponseBody
+	public Integer[] stat() {
+		
+		return factureService.getStatFactureMonth() ;
+		
+	}
+	
 	@GetMapping("/retrieve-factureClient/{client-id}")
 	@ResponseBody
 	public  List<Facture> retrieveFactureByClient(@PathVariable("client-id") Long ClientID) {
 	return factureService.getFacturesByClient(ClientID);
 	}
 	
-	@PostMapping("/add-facture")
+	@PostMapping("/add-facture/{client-id}")
 	@ResponseBody
-	public Facture addfacture(@RequestBody Facture c)
+	public Facture addfacture(@RequestBody Facture c, @PathVariable("client-id") Long ClientID)
 	{
-		Facture p = factureService.addFacture(c, c.getClient().getIdClient());
-	return p;
+		Facture p = factureService.addFacture(c,ClientID);
+		return p;
 	}
 	
 	@DeleteMapping("/remove-facture/{facture-id}")
@@ -63,7 +72,5 @@ import tn.esprit.spring.service.IProduitService;
 		factureService.cancelFacture(factureID);
 	}
 	
-
-
 
 }

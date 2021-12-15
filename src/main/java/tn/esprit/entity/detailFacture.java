@@ -35,13 +35,11 @@ public class detailFacture {
 	@Column
 	float montantRemise;
 	
-	 @ManyToOne(fetch = FetchType.EAGER)
-	    @JoinColumn(name = "idProduit")
-	    private Produit produit;
+	@ManyToOne
+    Produit produit;
 
 
 	@ManyToOne
-	@JoinColumn(name="FK_FACTURE_ID")
 	Facture facture;
 
 

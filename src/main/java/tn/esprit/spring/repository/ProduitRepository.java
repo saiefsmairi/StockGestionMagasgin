@@ -18,8 +18,8 @@ import tn.esprit.entity.Produit;
 import tn.esprit.entity.Stock;
 @Repository
 public interface ProduitRepository extends JpaRepository<Produit,Long> {
-	@Query("SELECT sum(df.prixTotal*df.qte) FROM detailFacture df where df.produit=:produit and df.facture.dateFacture between :startDate and :endDate ")
-	float getRevenuBrutProduit(@Param("produit") Produit produit,@Param("startDate") Date startDate ,@Param("endDate") Date endDate );
+	//@Query("SELECT sum(df.prixTotal*df.qte) FROM detailFacture df where df.produit=:produit and df.facture.dateFacture between :startDate and :endDate ")
+	//float getRevenuBrutProduit(@Param("produit") Produit produit,@Param("startDate") Date startDate ,@Param("endDate") Date endDate );
 	
 	
 	  @Query(value = "SELECT p FROM Produit p JOIN p.stock s WHERE s.qte<s.qteMin ")
