@@ -46,6 +46,9 @@ public int commercialProfession();
 public int cadreProfession();
 @Query("SELECT count(c.Profession) FROM Client c where c.Profession='autre'")
 public int autreProfession();
+
+@Query
+Client findByCategorieClient(CategorieClient category);
 }
 
 

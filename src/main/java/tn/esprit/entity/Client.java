@@ -1,6 +1,7 @@
 package tn.esprit.entity;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -18,6 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -65,6 +67,10 @@ public class Client {
 	@JsonIgnore
 
 	private Set<Reclamation> reclamation;
+	
+	@OneToMany(mappedBy="client")
+	@JsonBackReference(value="test1")
+	private List<Review> reviews;
 	
 	public Client() {
 		super();

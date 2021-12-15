@@ -78,6 +78,10 @@ private Rayon rayon;
 @JoinColumn(name = "idFacture")
 private List<detailFacture> detailFactures;
 
+@OneToMany(mappedBy="product")
+@JsonBackReference(value="test1")
+private List<Review> reviews;
+
 @ManyToMany(cascade = CascadeType.ALL)
 @JsonBackReference
 @JoinTable(name = "T_PRODUIT_FOURNISSEUR",joinColumns={@JoinColumn(name="idproduit")},inverseJoinColumns={@JoinColumn(name ="idFournisseur")})
