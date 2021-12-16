@@ -53,7 +53,7 @@ public class ClientRestController {
 		return clientService.findById(clientId);
 	}
 
-	// http://localhost:8089/SpringMVC/client/add-client
+	// http://localhost:8089/client/add-client
 	@PostMapping("/add-client")
 	@ResponseBody
 	public Client addClient(@RequestBody Client c) throws UnsupportedEncodingException, MessagingException {

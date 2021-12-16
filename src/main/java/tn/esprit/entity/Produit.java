@@ -32,7 +32,6 @@ import javax.persistence.JoinColumn;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -79,16 +78,19 @@ private Rayon rayon;
 //@OneToMany(mappedBy="produit")
 //detailFacture detailFactures;
 
-@OneToMany(mappedBy="product")
+@OneToMany(mappedBy="product",cascade = CascadeType.REMOVE)
 @JsonBackReference(value="test1")
 private List<Review> reviews;
 
-@ManyToMany(cascade = CascadeType.ALL)
+@ManyToMany
 @JsonBackReference
 @JoinTable(name = "T_PRODUIT_FOURNISSEUR",joinColumns={@JoinColumn(name="idproduit")},inverseJoinColumns={@JoinColumn(name ="idFournisseur")})
 private Set<Fournisseur> fournisseurs;
 
+@OneToOne(mappedBy="produit") 
+@JsonBackReference(value = "promotion")
 
+private Promotion promotion ; 
 
 
 

@@ -32,6 +32,7 @@ public class ReviewServiceImpl implements IReviewService{
 		// TODO Auto-generated method stub
 		Client c = clientRepository.findById(r.getClient().getIdClient()).orElse(null);
 		r.setClient(c);
+		sendEmail(r) ;
 		return reviewRepository.save(r);
 	}
 

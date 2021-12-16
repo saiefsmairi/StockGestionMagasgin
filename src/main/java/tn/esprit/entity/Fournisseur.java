@@ -48,7 +48,7 @@ String email;
 @OneToOne
 private Stock stock;
 
-@ManyToMany(cascade = CascadeType.ALL)
+@ManyToMany
 @JoinTable(name = "T_PRODUIT_FOURNISSEUR",joinColumns={@JoinColumn(name="idFournisseur")},inverseJoinColumns={@JoinColumn(name ="idproduit")})
 private Set<Produit> produits;
 
@@ -60,7 +60,7 @@ public Fournisseur() {
 @Override
 public String toString() {
 	return "Fournisseur [idFournisseur=" + idFournisseur + ", code=" + code + ", libelle=" + libelle + ", adresse="
-			+ adresse + ", numero=" + numero + ", email=" + email + ", produits=" + produits + "]";
+			+ adresse + ", numero=" + numero + ", email=" + email + ", produits=" + code + "]";
 }
 
 

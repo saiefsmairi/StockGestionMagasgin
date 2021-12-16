@@ -130,10 +130,10 @@ import tn.esprit.spring.service.IProduitService;
 	return produitService.findById(produitID);
 	}
 	
-	@PostMapping("/add-produit")
+	@PostMapping("/add-produitt")
 	@ResponseBody
 	//required=false,name=
-	public ResponseEntity<Response> addProduit(@RequestParam("produit") String produit,@RequestParam("fournisseur") long fournisseurId,
+	public ResponseEntity<Response> addProduitt(@RequestParam("produit") String produit,@RequestParam("fournisseur") long fournisseurId,
 			@RequestParam("idstock") long idstock,
 			@RequestParam("file") MultipartFile file) throws JsonMappingException, JsonProcessingException
 	{ 
@@ -170,9 +170,51 @@ import tn.esprit.spring.service.IProduitService;
 		}
 		
 	}
+	
+	
+	@PostMapping("/add-produit")
+	@ResponseBody
+	//required=false,name=
+	public ResponseEntity<Response> addProduit(@RequestParam("produit") String produit,@RequestParam("fournisseur") long fournisseurId,
+			@RequestParam("idstock") long idstock ,
+			@RequestParam("file") MultipartFile file ) throws JsonMappingException, JsonProcessingException
+	{ Produit prod = new ObjectMapper().readValue(produit,Produit.class);
+	boolean isExit = new File(context.getRealPath("/Images/")).exists();
+	if(!isExit)
+	{ 
+		new File (context.getRealPath("/Images/")).mkdir();
+		
+	}
+		String filename = file.getOriginalFilename();
+		String newFileName = FilenameUtils.getBaseName(filename)+"."+FilenameUtils.getExtension(filename);
+		File serverFile = new File (context.getRealPath("/Images/"+File.separator+newFileName));
+		
+		try
+		{
+			System.out.println("Image");
+			FileUtils.writeByteArrayToFile(serverFile, file.getBytes());
+		}catch(Exception e) {e.printStackTrace();}
+		prod.setImage(newFileName);
+		Fournisseur f = fournisseurRepository.findById(fournisseurId) .orElse(null);
+		
+		Stock s = stockRepository.findById(idstock) .orElse(null);
+		prod.setStock(s);
+		f.getProduits().add(prod);
+		Produit pro = productRepository.save(prod);
+		if(pro != null)
+		{return new ResponseEntity<Response>(new Response (), HttpStatus.OK);}
+		else
+		{
+			return new ResponseEntity<Response>(new Response(),HttpStatus.BAD_REQUEST);
+		}
+		
+	}
+	
+	
 	@GetMapping(path="/Imgproduits/{id}")
 	public byte[] getPhoto(@PathVariable("id") Long id) throws IOException {
 		Produit Produit = productRepository.findById(id).get();
+		System.out.println(Produit);
 		return Files.readAllBytes(Paths.get(context.getRealPath("/Images/")+Produit.getImage()));
 	}
 	

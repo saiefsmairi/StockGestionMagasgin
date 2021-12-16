@@ -1,5 +1,7 @@
 package tn.esprit.spring.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,12 @@ public class detailFactureImpl implements IDetailFactureService {
 		d.setFacture(facture);
 		d.setProduit(produit);
 		return detailFactureRepository.save(d) ;
+	}
+
+	@Override
+	public ArrayList<detailFacture> findAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
